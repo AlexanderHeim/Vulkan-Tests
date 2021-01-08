@@ -33,3 +33,22 @@ bool is_instance_layer_available(char* layer_name) {
 	free(properties);
 	return false;
 }
+
+bool is_instance_extension_available_nolayer(char* extension_name) {
+	uint32_t propertyCount;
+	vkEnumerateInstanceExtensionProperties(NULL, &propertyCount, NULL);
+	VkExtensionProperties* properties = (VkExtensionProperties*)calloc(propertyCount, sizeof(VkExtensionProperties));
+	vkEnumerateInstanceExtensionProperties(NULL, &propertyCount, properties);
+	if (properties == NULL) {
+		free(properties);
+		return false;
+	}
+	for (int i = 0; i < propertyCount; i++) {
+		if (strcmp(extension_name, properties[i].extensionName) == 0) {
+			free(properties);
+			return true;
+		}
+	}
+	free(properties);
+	return false;
+}
