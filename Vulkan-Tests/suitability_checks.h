@@ -7,5 +7,6 @@
 bool is_vulkan_version_supported(uint32_t major, uint32_t minor, uint32_t patch);
 bool is_instance_layer_available(char* layer_name);
 bool is_instance_extension_available_nolayer(char* extension_name);
+bool is_physical_device_suitable(VkPhysicalDevice physical_device);
 
 #endif

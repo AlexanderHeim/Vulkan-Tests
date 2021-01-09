@@ -24,12 +24,18 @@
     <ClCompile Include="debug_utilities.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vulkan_utilities.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="suitability_checks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="debug_utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vulkan_utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

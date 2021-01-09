@@ -6,6 +6,7 @@
 
 #include "suitability_checks.h"
 #include "debug_utilities.h"
+#include "vulkan_utilities.h"
 
 
 //DESTROYING INSTANCE AND STUFF STILL NEEDS TO BE IMPLEMENTED
@@ -67,14 +68,22 @@ int main() {
 	if (instance_created != VK_SUCCESS) {
 		return EXIT_FAILURE;
 	}
-	printf("Instance created!");
+	printf("Instance created!\n");
 
 	//Get Pointer to extension function
 	PFN_vkCreateDebugUtilsMessengerEXT createDebugUtilsMessenger = vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
 	
 	//Actually create the debug messenger
 	VkDebugUtilsMessengerEXT debug = 0;
-	createDebugUtilsMessenger(instance, &debugCreateinfo, NULL, &debug);
+	if (createDebugUtilsMessenger(instance, &debugCreateinfo, NULL, &debug) != VK_SUCCESS) {
+		printf("Failed to setup Debug Utils Messenger!!");
+		return EXIT_FAILURE;
+	}
+	
+	VkPhysicalDevice physical_device = pick_best_physical_device(instance);
+
+
+
 	return EXIT_SUCCESS;
 }
 

@@ -150,10 +150,12 @@
     <ClCompile Include="debug_utilities.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="suitability_checks.c" />
+    <ClCompile Include="vulkan_utilities.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug_utilities.h" />
     <ClInclude Include="suitability_checks.h" />
+    <ClInclude Include="vulkan_utilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

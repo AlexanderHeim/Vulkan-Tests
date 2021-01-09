@@ -16,5 +16,7 @@ void print_available_instance_layers();
 //Doesnt take layer into account
 void print_available_instance_extensions_nolayers();
 
+void print_available_physical_devices(VkInstance instance);
+
 
 #endif

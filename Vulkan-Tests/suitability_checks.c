@@ -52,3 +52,7 @@ bool is_instance_extension_available_nolayer(char* extension_name) {
 	free(properties);
 	return false;
 }
+
+bool is_physical_device_suitable(VkPhysicalDevice physical_device) {
+	return true;
+}
