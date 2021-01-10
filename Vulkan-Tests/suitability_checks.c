@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
+#include "vulkan_utilities.h";
 
 bool is_vulkan_version_supported(uint32_t major, uint32_t minor, uint32_t patch) {
 	uint32_t actual_version = 0;
@@ -54,5 +55,9 @@ bool is_instance_extension_available_nolayer(char* extension_name) {
 }
 
 bool is_physical_device_suitable(VkPhysicalDevice physical_device) {
+	QueueFamilyIndices queue_family_indices = find_queue_families(physical_device);
+	if (queue_family_indices.graphicsFamily == NO_INDEX_PRESENT) {
+		return false;
+	}
 	return true;
 }

@@ -81,7 +81,7 @@ int main() {
 	}
 	
 	VkPhysicalDevice physical_device = pick_best_physical_device(instance);
-
+	QueueFamilyIndices indices_temp = find_queue_families(physical_device);
 
 
 	return EXIT_SUCCESS;

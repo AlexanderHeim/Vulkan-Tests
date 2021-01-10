@@ -4,6 +4,40 @@
 #include "suitability_checks.h"
 #include <stdbool.h>
 
+#define NO_INDEX_PRESENT 4294967199
+
+typedef struct QueueFamilyIndices {
+	uint32_t graphicsFamily;
+} QueueFamilyIndices;
+
+QueueFamilyIndices find_queue_families(VkPhysicalDevice physical_device) {
+	QueueFamilyIndices indices = {
+		.graphicsFamily = NO_INDEX_PRESENT,
+	};
+
+	uint32_t queueFamilyCount = 0;
+	vkGetPhysicalDeviceQueueFamilyProperties(physical_device, &queueFamilyCount, NULL);
+
+	VkQueueFamilyProperties* properties = calloc(queueFamilyCount, sizeof(VkQueueFamilyProperties));
+	vkGetPhysicalDeviceQueueFamilyProperties(physical_device, &queueFamilyCount, properties);
+
+	if (properties == NULL) {
+		printf("VkQueueFamilyProperties* properties is NULL!");
+		free(properties);
+		return;
+	}
+
+	for (int i = 0; i < queueFamilyCount; i++) {
+		
+		if (properties[i].queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+			indices.graphicsFamily = i;
+		}
+	}
+
+	free(properties);
+	return indices;
+}
+
 VkPhysicalDevice pick_best_physical_device(VkInstance instance) {
 	uint32_t physicalDeviceCount;
 	vkEnumeratePhysicalDevices(instance, &physicalDeviceCount, NULL);
@@ -70,3 +104,4 @@ VkPhysicalDevice pick_best_physical_device(VkInstance instance) {
 	free(scores);
 	return device;
 }
+
