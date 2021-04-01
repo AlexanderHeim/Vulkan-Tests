@@ -83,6 +83,41 @@ int main() {
 	VkPhysicalDevice physical_device = pick_best_physical_device(instance);
 	QueueFamilyIndices indices_temp = find_queue_families(physical_device);
 
+	float queuePriority = 1.0f;
+
+	VkDeviceQueueCreateInfo queueCreateInfo = {
+		.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
+		.queueFamilyIndex = indices_temp.graphicsFamily,
+		.queueCount = 1,
+		.flags = NULL,
+		.pNext = NULL,
+		.pQueuePriorities = &queuePriority,
+	};
+
+	VkPhysicalDeviceFeatures deviceFeatures = { 0 };
+
+	VkDeviceCreateInfo createInfo = {
+		.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
+		.pQueueCreateInfos = &queueCreateInfo,
+		.queueCreateInfoCount = 1,
+		.pEnabledFeatures = &deviceFeatures,
+		.enabledExtensionCount = NULL,
+		.enabledLayerCount = NULL,
+		.flags = NULL,
+		.pNext = NULL,
+		.ppEnabledExtensionNames = NULL,
+		.ppEnabledLayerNames = NULL,
+	};
+
+	VkDevice device;
+
+	if (vkCreateDevice(physical_device, &createInfo, NULL, &device) != VK_SUCCESS) {
+		printf("Failed to create device!");
+		return EXIT_FAILURE;
+	}
+
+	VkQueue graphicsQueue;
+	vkGetDeviceQueue(device, indices_temp.graphicsFamily, 0, &graphicsQueue);
 
 	return EXIT_SUCCESS;
 }
